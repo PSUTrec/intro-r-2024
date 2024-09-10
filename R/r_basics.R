@@ -80,6 +80,26 @@ x
 
 # data structures ----
 # vectors have a single dimension, like a column or row of data
+a <- c("1", "2", "3")  # c() stands for collect (what's inside)
+a
+a <- c(1, 2, 3)
+a
+a + 1
+
+a <- c(1, 2, 3, "4")  # R will auto-type to form that "works"
+a
+typeof(a)
+a + 1
+
+a <- c(1, 2, 3)
+a < 3
+
+any(a < 3)  # tests whether any comparison TRUE
+all(a < 3)  # tests whether all comparisons TRUE
+
+3 %in% a  # testing membership in a vector
+4 %not in% a  # nope 
+!4 %in% a  # yep
 
 # data frames - the key structure for data science, multi-dimensional
 #   collections of vectors
