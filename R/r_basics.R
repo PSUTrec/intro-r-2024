@@ -3,6 +3,12 @@
 #   little minds"   -Ralph Waldo Emerson 
 
 # Literals ----
+"this is a string literal"  # double quotes preferred in R but not required
+42
+T
+F
+TRUE
+FALSE
 
 # Operators ----
 
