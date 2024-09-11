@@ -56,3 +56,4 @@ tt_mode_car_fig <- df_ice |>
   geom_point() +
   theme_bw()
 tt_mode_car_fig
+
