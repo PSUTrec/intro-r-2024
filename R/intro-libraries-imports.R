@@ -15,4 +15,28 @@ library(readxl)
 icebreaker_answers <- read_excel("data/icebreaker_answers.xlsx")
 View(icebreaker_answers)
 
+library(dplyr)
+
+odot_meta <- sta_meta |> # old pipe notation %>%
+  filter(
+    agency == "ODOT",
+    highwayid == 1
+    )
+
+notodot_meta <- sta_meta |>
+  filter(
+    agency != "ODOT" 
+  )
+
+# looking for NAs
+nas_meta <- sta_meta |>
+  filter(
+    is.na(detectorlocation)
+  )
+
+# excluding NAs
+real_meta <- sta_meta |>
+  filter(
+    !is.na(detectorlocation)
+  )
 
