@@ -1,5 +1,5 @@
 library(dplyr)
-library(tidyr)
+# library(tidyr)
 library(ggplot2)
 library(lubridate)
 
@@ -41,7 +41,8 @@ daily_data <- data_stid |>
   summarize(
     daily_volume = sum(volume),
     daily_obs = sum(countreadings),
-    mean_speed = mean(speed)
+    mean_speed = mean(speed),
+    mean_daily_volume = mean(volume)
   ) |>
   as.data.frame()
 # point out sometimes need to be explicit about as.data.frame()
@@ -82,6 +83,9 @@ looking_gaps <- data_gap |>
   left_join(daily_data, by = c("timestamp_seq" = "date",
                              "station_id" = "stationid"))
 
+# saveRDS(looking_gaps, "data/looking_volumes.rds")
+# write.csv(looking_gaps, "data/looking_volumes.csv", row.names = F)
+
 mod_date_fig <- looking_gaps |>
   filter(station_id %in% c(1056, 1057, 1059)) |>
   ggplot(aes(x = timestamp_seq, y = daily_volume)) +
@@ -119,9 +123,25 @@ mod_data <- pad(data_detectors)
 df$stid <- daily_data |>
   distinct(stationid)
 
+# factors, numeric, characters
+speed_vol_data <- data_stid |>
+  filter(
+    stationid == 3128,
+    starttime >= "2023-03-01 00:00:00" &starttime <= "2023-03-07 23:59:59"
+         ) |>
+  ggplot(aes(x = starttime, y = speed, color = as.factor(detector_id))) +
+  geom_line()
+speed_vol_data
 
-
-
+# categories!
+speed_vol_data <- data_stid |>
+  filter(
+    stationid == 3128,
+    starttime >= "2023-03-01 00:00:00" &starttime <= "2023-03-07 23:59:59"
+  ) |>
+  ggplot(aes(x = starttime, y = speed, color = as.factor(detector_id))) +
+  geom_line()
+speed_vol_data
 
 
 # if you didn't have a timezone designation in your original file "... 00:00:00-07" use force_tz
