@@ -81,7 +81,15 @@ summary(comm_19_22 %>% select(ends_with("_chg")))
 # plot 'em
 p <- comm_19_22 %>%
   ggplot(aes(x = wfh_chg, y = transit_chg))
-p + geom_point() + geom_smooth(method = "lm")
+p + geom_point() + 
+  geom_smooth(method = "lm") +
+  annotate("text", x=800, y=50, 
+            label = paste("r =", 
+                          round(cor(comm_19_22$wfh_chg, comm_19_22$transit_chg), 2)
+                          )
+           ) + 
+  labs(x="WFH Change 2019-2022", y="Transit Commuting Change", 
+       title="Multnomah County Census Tracts")
 
 cor(comm_19_22$transit_chg, comm_19_22$wfh_chg)
 
